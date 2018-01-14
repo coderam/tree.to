@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Eternal life for all">
+    <meta name="author" content="An open eternity for the whole world.">
+
+    <title>Freeternity - an open and eternal life for the whole world, starting with a few gems of wisdom.</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href= "css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/grayscale.css" rel="stylesheet">
+    
+    <!-- Custom Fonts -->
+    <link href="css/font.lora.css" rel="stylesheet" type="text/css">
+    <link href="css/font.montserrat.css" rel="stylesheet" type="text/css">
+	
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+	
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/grayscale.js"></script>
+
+    <script src="js/RecordRTC.js"></script>
+
+    <script>
+    $.ajaxSetup({
+      data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+    });
+
+    var Base = this.Base = {
+        anchor_click: function() {
+            if(window.location.hash) {
+              var hash = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
+              console.log(hash);
+              if (hash == 'sslshiur') {
+                $('button[data-toggle="#modal-upload"]').click();
+                console.log($('button[data-toggle="#modal-upload"]').click());
+              }
+              if (hash == 'login') {
+                {% if not request.user.is_authenticated %}
+                    $('button[data-toggle="#modal-login-register"]').click();
+                {% endif %}
+              }
+              // hash found
+            } else {
+              // No hash found
+            }
+        },
+        logout: function() {
+            $.post( "/api/accounts/logout/",
+                    { },
+                    function(response) {
+                        var uri = window.location.href.split("#")[0];
+                        window.location.href = uri;
+                    }
+            );
+        }
+    };
+
+    </script>
+
+	{% block js %}
+	
+	{% endblock %}
+	
+	{% block css %}
+	
+	{% endblock %}
+
+    {% block cssvariable %}
+        <style>
+            body !important {
+                background-color; #fff;
+                color: #000;
+               }
+            .intro {
+                background-image: transparent;
+                /* background: url(../img/intro-bg.jpg) no-repeat bottom center scroll; */
+                background-color: #fff;
+                color: #428bca;
+            }
+
+            #exTab3 .tab-content {
+              color : white;
+              background-color: #428bca;
+              padding : 5px 15px;
+            }
+
+            #exTab3 .nav-pills > li > a {
+              border-radius: 4px 4px 0 0 ;
+            }
+
+        </style>
+    {% endblock %}
+	
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <div class='navbar-behind'></div>
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="glyphicon glyphicon-align-justify"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="/">
+                    <i class="glyphicon">&#x2764;</i>
+                    <span class="light">Fre<b>eternity</b><!--{{chai}}--></span><span class="light"></span>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="/index.html#page-top"></a>
+                    </li>
+
+                    {% if request.user.is_authenticated %}
+                        <li>
+
+                            <a href="#" class="page-scroll"><i class="glyphicon glyphicon-user"></i> {{request.user.username}}</a>
+                        </li>
+                    {% endif %}
+
+                    {% if request.user.is_authenticated %}
+                    <li>
+                        <a class="page-scroll modal-activate" onclick="return false;" data-toggle="#modal-upload" data-target="#modal-upload" href="#modal-upload"><i class="glyphicon glyphicon-headphones"></i> Record</a>
+                    </li>
+                    {% endif %}
+
+                    {% if request.user.is_authenticated and request.user.is_superuser %}
+                        <li>
+                            <a class="page-scroll" href="?chai">Admin</a>
+                        </li>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                        <li>
+                            <a class="page-scroll" href="/index.html#logout" onclick="Base.logout(); return false;">Logout</
+                        </li>
+                    {% else %}
+                        {% if settings.DEBUG %}
+                        <li>
+                            <a class="page-scroll" href="/index.html#login">Login</a>
+                        </li>
+                        {% endif %}
+                    {% endif %}
+
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+
+    {% block header %}
+    <header class="masthead {% block header_classes %}{% endblock %}">
+        <div class="container h-100">
+            <div class="row h-100">
+                <div class="col-lg-7 my-auto">
+                    <div class="header-content mx-auto">
+                        {% block header_msg %}
+                        <h1 class="mb-5">
+                            Eternity for all.  
+                        </h1>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" style="background: #fff;">
+                            Spread love ❤
+                        </button>
+                        {% endblock %}
+                    </div>
+                </div>
+
+
+                <div class="col-lg-5 my-auto">
+                    <div class="device-container">
+                        <div class="device-mockup iphone6_plus portrait white">
+                            <div class="device">
+                                <div class="screen">
+                                    <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+                                </div>
+                                <div class="button">
+                                    <!-- You can hook the "home button" to some JavaScript events or just remove it -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    {% endblock %}
+
+	{% block content %}
+
+	{% endblock %}
+	
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p style='font-size:.9em;'>Love only.  This is a completely volunteer-driven & open-source website in its most liberal sense. <br/>Powered by nothing but love, volunteerism, Jewish wisdom and only the goodnesses of Hashem, the God of the Jewish people. <br/> <a href="mailto:love@freeternity.com">love@freeternity.com</a> </p>
+        </div>
+    </footer>
+
+    {% block modal %}
+    <!-- modal -->
+
+    {% endblock %}
+
+
+    {% block jsfooter %}
+    <script>
+        $(document).ready(function () {
+            Base.anchor_click();
+            $(".modal-activate").click(function(){
+                var data_toggle = $(this).attr('data-toggle');
+                $(data_toggle).modal();
+            });
+        });
+
+    </script>
+    {% endblock %}
+
+</body>
+
+</html>
