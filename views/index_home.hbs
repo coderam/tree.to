@@ -6,6 +6,11 @@
 		section#shiurs .list-group-item {
 			text-align: left;
 		}
+        
+        section#eternities .modal-body p {
+            text-align: left;
+            padding: 18px;
+        }
 
         .form-login .input-group-addon {
             display:none;
@@ -55,7 +60,10 @@
 
 {% block header_msg %}
     <h1 class="mb-5">Eternal life for all.</h1>
-    <button type="button" class="btn btn-default" data-dismiss="modal" style="background: #fff;">Spread life ❤</button>
+    <p>
+        The greatest eternity is the eternity of love.  Doing kindnesses and spreading goodnesses throughout this wonder-filled world we call Earth.
+    </p>
+    <button type="button" class="btn btn-default" data-dismiss="modal" style="background: #fff;">Spread Eternity ❤</button>
 {% endblock %}
 
 {% block content %}
@@ -99,7 +107,7 @@
 
     {% endif %}
     
-    <section id="shiurim" class="container content-section text-center">
+    <section id="eternities" class="container content-section text-center">
         
         {% for eternity in eternities %}
             <div class="modal-content">
@@ -109,7 +117,12 @@
                     <h4 class="modal-title">{{eternity.title}}</h4>
                 </div>
                 <div class="row modal-body">
-
+                    
+                    {% if eternity.uplifting %}
+                    <p>
+                        {{eternity.uplifting}}
+                    </p>
+                    {% endif %}
 
                     <div class="list-group">
                         {% for sefer in sfarim %}
@@ -151,6 +164,7 @@
                     {% endif %}
                 </div>
             </div>
+            <br/><br/>
         {% endfor %}
     </section>
 
@@ -200,10 +214,9 @@
     </section>
     {% else %}
     {% endif %}
-
-
+    
     {% if settings.ALLOW_LOGIN %}
-    {% if not request.user.is_authenticated %}
+    {% if not settings.HTML_ONLY %}
     <!-- Login or rogister Section -->
     <section id="login" class="container content-section text-center">
         <div class="row">

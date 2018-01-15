@@ -118,7 +118,7 @@
                     <i class="glyphicon glyphicon-align-justify"></i>
                 </button>
                 <a class="navbar-brand page-scroll" href="/">
-                    <i class="glyphicon">&#x2764;</i>
+                    <i class="glyphicon" onclick=''>&#x2764;</i>
                     <span class="light">Fre<b>eternity</b><!--{{chai}}--></span><span class="light"></span>
                 </a>
             </div>
@@ -137,16 +137,17 @@
                             <a href="#" class="page-scroll"><i class="glyphicon glyphicon-user"></i> {{request.user.username}}</a>
                         </li>
                     {% endif %}
-
-                    {% if request.user.is_authenticated %}
+                    
+                    
+                    {% if sesssion.activated %}
                     <li>
-                        <a class="page-scroll modal-activate" onclick="return false;" data-toggle="#modal-upload" data-target="#modal-upload" href="#modal-upload"><i class="glyphicon glyphicon-headphones"></i> Record</a>
+                        <a class="page-scroll modal-activate" onclick="return false;" data-toggle="#modal-upload" data-target="#modal-upload" href="#modal-upload"><i class="glyphicon glyphicon-headphones"></i> Activated</a>
                     </li>
                     {% endif %}
-
+                    
                     {% if request.user.is_authenticated and request.user.is_superuser %}
                         <li>
-                            <a class="page-scroll" href="?chai">Admin</a>
+                            <a class="page-scroll" href="http://{{settings.DOMAIN}}:5984/_utils/">Admin</a>
                         </li>
                     {% endif %}
                     {% if request.user.is_authenticated %}
@@ -214,7 +215,9 @@
     <!-- Footer -->
     <footer>
         <div class="container text-center">
-            <p style='font-size:.9em;'>Love only.  This is a completely volunteer-driven & open-source website in its most liberal sense. <br/>Powered by nothing but love, volunteerism, Jewish wisdom and only the goodnesses of Hashem, the God of the Jewish people. <br/> <a href="mailto:love@freeternity.com">love@freeternity.com</a> </p>
+            <p style='font-size:.9em;'>Love only.  This is a completely volunteer-driven & open-source website in its most liberal sense driven by happiness and an Eternal gift. {#<br/>Powered by nothing but love, happiness, volunteerism, Jewish wisdom and only the goodnesses of Hashem, the God of the Jewish people. <br/> #} 
+            <br/>
+            <a href="mailto:love@freeternity.com">happiness@freeternity.com</a> </p>
         </div>
     </footer>
 
