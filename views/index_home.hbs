@@ -3,7 +3,7 @@
 {% block css %}
 
 	<style>
-		section#shiurs .list-group-item {
+		section#titles .list-group-item {
 			text-align: left;
 		}
         
@@ -24,14 +24,14 @@
 
         /* iframe */
         @media(min-width:218px) {
-            #daily_shiur_span {
+            #daily_video_span {
                 max-width:218px;
                 width: 918%;
             }
         }
 
         @media(min-width:388px) {
-            #daily_shiur_span {
+            #daily_video_span {
                 max-width:418px;
                 width: 98%;
             }
@@ -59,44 +59,36 @@
 {% endblock %}
 
 {% block header_msg %}
-    <h1 class="mb-5">Eternal life for all.</h1>
+    <h1 class="mb-5">Alternative material for trees</h1>
     <p>
-        The greatest eternity is the eternity of love.  Doing kindnesses and spreading goodnesses throughout this wonder-filled world we call Earth.
+        Using mud and epoxy one can emulate and create artificial wood on a massive scale.  This idea is completely open source and its proliferation could save the "lives" (yes, in all humility trees have life).  This idea is donated to humanity by your humble friend, trees@treeternity.com. Love only.
     </p>
     <button type="button" class="btn btn-default" data-dismiss="modal" style="background: #fff;">Spread Eternity ❤</button>
 {% endblock %}
 
 {% block content %}
 
-    {% if daily_shiur %}
+    {% if daily_video %}
         <!-- Intro Header -->
-
         <header class="intro">
             <div class="intro-body" style=''>
                 <div class="container" style='padding-left:0;'>
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
 
-                            {% if daily_shiur %}
+                            {% if daily_video %}
                                 <span id='daily_shiur_span' class="btn btn-primary btn-lg" style='white-space: nowrap; overflow: hidden; text-overflow: ellipsis;' href="" role="button">{{daily_shiur.title}}</span><Br/><br/>
 
-                                <h1 class="brand-heading brand-daily-shiur" style='display:none;padding-left:15px;'>{{daily_shiur.title}}</h1>
-                                {% if daily_shiur.mp3_url %}
-                                    <audio style='width: 100%;' controls preload="none">
-                                        <source src="{{shiur.mp3_url}}" type="audio/mpeg" />
-                                        <a href="{{shiur.mp3_url}}">{{shiur.title|safe}}</a>
-                                    </audio>
-                                {% endif %}
+                                <h1 class="brand-heading brand-daily-shiur" style='display:none;padding-left:15px;'>{{daily_video.title}}</h1>
+                                
                                 {% if daily_shiur.video_url %}
-                                    <iframe id="player_1" style="margin-left: 20px;" src="{{daily_shiur.video_url}}" frameborder="0" width="90%" height="300"></iframe>
+                                    <iframe id="player_1" style="margin-left: 20px;" src="{{daily_video.video_url}}" frameborder="0" width="90%" height="300"></iframe>
                                 {% endif %}
                                 <div>
                                     <button class='btn'><i class='glyphicon glyphicon-chevron-left'></i></button>
                                     <button class='btn'><i class='glyphicon glyphicon-chevron-right'></i></button>
                                 </div>
-                            {% else %}
-                                <h1 class="brand-heading">Daily shiur</h1>
-                                <p class="intro-text">No daily shiur yet!</p>
+                          
                             {% endif %}
 
                         </div>
@@ -109,7 +101,7 @@
     
     <section id="eternities" class="container content-section text-center">
         
-        {% for eternity in eternities %}
+        {% for eternity in treeternities %}
             <div class="modal-content">
                 <div class="modal-header">
 
@@ -125,7 +117,7 @@
                     {% endif %}
 
                     <div class="list-group">
-                        {% for sefer in sfarim %}
+                        {% for wind in winds %}
                             <a href="" class="list-group-item" style="border-radius: 0 !important; border-width: 1px 0px !important;">
 
                                 {% if request.user.is_authenticated %}
@@ -134,7 +126,8 @@
                                 <span class="badge"><i title="Publish publicly" class='glyphicon glyphicon-bullhorn'></i> </span>
                                 <span class="badge"><i title="Deletes" class='glyphicon glyphicon-remove-sign'></i></span>
                                 {% endif %}
-                            {{sefer.title|safe}}
+                                
+                            {{etternity.title|safe}}
                             </a>
                         {% endfor %}
 
@@ -149,7 +142,7 @@
                     <div class="dropdown" style='display:inline;'>
 
                       <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <i class='glyphicon glyphicon-eye-close'></i> Friends only</a>
+                        <i class='glyphicon glyphicon-eye-close'></i> Friends only
                         <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -175,14 +168,14 @@
 
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Listen. Learn. Love.</h3>
+                        <h3 class="panel-title">Fly by the wind oh so high!</h3>
                     </div>
                     <div class="panel-body">
                         <div class="list-group">
-                            {% for sefer in sfarim %}
+                            {% for title in titles %}
                                 <a href="" class="list-group-item">
                                     <span class="badge"><i class='glyphicon glyphicon-chevron-right'></i></span>
-                                {{sefer.title|safe}}
+                                    {{title.title|safe}}
                                 </a>
                             {% endfor %}
                         </div>
@@ -200,12 +193,12 @@
     <section id="share" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <h2>Share a Shiur</h2>
+                <h2>Share a vide</h2>
                 <p>
-                    Share a Shiur with a friend by uploading your own words of love.
+                    Share a windsurfing video the easy way!
                 </p>
                 <p>
-                    <button onclick="{% if not settings.DEBUG %} var window_location = window.location.href.replace(/^http:/, 'https:'); if (window.location.href != window_location) { $('#modal-upload').find('.modal-body').html('Please wait'); window.location = window_location + '#sslshiur'; return false; } {% endif %}" data-toggle='#modal-upload' class="btn btn-default modal-activate"><i class="glyphicon glyphicon-headphones"></i> Record a shiur</button>
+                    <button onclick="{% if not settings.DEBUG %} var window_location = window.location.href.replace(/^http:/, 'https:'); if (window.location.href != window_location) { $('#modal-upload').find('.modal-body').html('Please wait'); window.location = window_location + '#sslshiur'; return false; } {% endif %}" data-toggle='#modal-upload' class="btn btn-default modal-activate"><i class="glyphicon glyphicon-headphones"></i> Upload a windsurfing video</button>
                     <!-- <button data-toggle='#modal-login-register' class="btn btn-default modal-activate">Login/register</button>  -->
                 </p>
 
@@ -237,9 +230,7 @@
         <div class="">
             <div class="container">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <h2>Contact the volunteers at Freeternity</h2>
-                    We would love to get to know each and every one of you.  Eternal life truly is a gift from on High and 
-                    is given to those who do the greatest goodnesses to human existance.  It all starts with a little bit of love, that moment when you feel such a tremendous connection to the greatest being that isn't a being at all.  You feel it, on a boat, a windsurfing sail, or on the slopes, you say "ahhhh, I love you so much" and at that moment you are alive.  
+                    <h2>Move to the forest near year on the very edge and build a little community that sustains the trees and their life.  </h2>
                 </div>
             </div>
         </div>
@@ -250,12 +241,9 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h2>Contact</h2>
-                <p><a href="mailto:love@freeternity.com">love@freeternity.com</a>
+                <p><a href="mailto:{{settings.EMAIL}}">{{settings.EMAIL}}</a>
                 </p>
-                <!--
-                <ul class="list-inline banner-social-buttons">
-                    <li></li>
-                </ul> -->
+                
             </div>
         </div>
     </section>

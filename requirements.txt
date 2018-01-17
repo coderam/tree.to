@@ -1,4 +1,5 @@
 dom-i18n
 server
 nano
-connect-redis
+#connect-redis
+nodemon

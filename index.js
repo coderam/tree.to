@@ -18,12 +18,12 @@ var options = {
     session: {
         activated: false,
     }
-};
+}; 
 
 
-nano.db.get(settings.COUCHDB_PREFIX+'eternities', function(err, hi) {
+nano.db.get(settings.COUCHDB_PREFIX+'treeternities', function(err, hi) {
    if (err) {
-       nano.db.create(settings.COUCHDB_PREFIX+'eternities', function(err, hi) {
+       nano.db.create(settings.COUCHDB_PREFIX+'treeternities', function(err, hi) {
             if (err)
                 console.log('db already hi')
             else
@@ -34,26 +34,26 @@ nano.db.get(settings.COUCHDB_PREFIX+'eternities', function(err, hi) {
        
 });
 
-var eternities = nano.use(settings.COUCHDB_PREFIX+'eternities');
-eternities.insert({ title: "hi", uplifting: "uplifting", how: "areyouhi" }, function(err, body, header) {
+var treeternities = nano.use(settings.COUCHDB_PREFIX+'treeternities');
+treeternities.insert({ title: "hi", uplifting: "uplifting", how: "areyouhi" }, function(err, body, header) {
   if (err) {
     console.log('[.insert] ', err.message);
   } else {
-      console.log('you have added to the eternity.', body)
+      console.log('you have added to the treeternity.', body)
   }
 });
 
-var eternities_each = [];
+var treeternities_each = [];
 
-eternities.list(function(err, body) {
+treeternities.list(function(err, body) {
   if (!err) {
-    //eternities_each = body.rows;
+    //windriders_each = body.rows;
     console.log('hi')
     body.rows.forEach(function(doc) {
       //console.log(doc);
         console.log(doc.id);
-        eternities.get(doc.id, function(err,eternity) {
-            eternities_each.push(eternity);
+        treeternities.get(doc.id, function(err,eternity) {
+            treeternities_each.push(eternity);
            console.log(eternity); 
         });
     });
@@ -64,10 +64,10 @@ eternities.list(function(err, body) {
 });
 
 /* 
-{% set length = eternities.length if images.length < 13 else 13 %} 
+{% set length = windriders.length if images.length < 13 else 13 %} 
         {% for i in range(0, length) %}
-            {{eternities[i] | dump}}
-            {{eternities[i]["id"]}} {{eternities[i]._id}}
+            {{windriders[i] | dump}}
+            {{windriders[i]["id"]}} {{windriders[i]._id}}
         {% endfor %}
         */
 
@@ -79,7 +79,7 @@ server(options,[
                                                                   { chai: "chai", 
                                                                     settings: settings,
                                                                     options: options,
-                                                                    eternities: eternities_each
+                                                                    treeternities: treeternities_each
                                                                   }))),
   get('/', ctx => {
     return redirect('/index.html');
