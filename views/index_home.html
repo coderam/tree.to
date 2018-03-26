@@ -1,0 +1,258 @@
+{% extends 'index.hbs' %}
+
+{% block css %}
+
+	<style>
+		section#titles .list-group-item {
+			text-align: left;
+		}
+        
+        section#eternities .modal-body p {
+            text-align: left;
+            padding: 18px;
+        }
+
+        .form-login .input-group-addon {
+            display:none;
+        }
+
+        @media(min-width:467px) {
+            .form-login .input-group-addon {
+                display:inline;
+            }
+        }
+
+        /* iframe */
+        @media(min-width:218px) {
+            #daily_video_span {
+                max-width:218px;
+                width: 918%;
+            }
+        }
+
+        @media(min-width:388px) {
+            #daily_video_span {
+                max-width:418px;
+                width: 98%;
+            }
+        }
+
+	</style>
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        var BaseHome = this.BaseHome = {
+            logout: function() {
+                $.post( "api/accounts/logout/",
+                        { },
+                        function(response) {
+                            alert(response);
+                            window.location.reload(true);
+                        }
+                );
+            }
+        };
+
+    </script>
+{% endblock %}
+
+{% block header_msg %}
+    <h1 class="mb-5">Alternative material for trees</h1>
+    <p>
+        Using mud and epoxy one can emulate and create artificial wood on a massive scale.  This idea is completely open source and its proliferation could save the "lives" (yes, in all humility trees have life). Love only.
+    </p>
+    <button type="button" class="btn btn-default" data-dismiss="modal" style="background: #fff;">Spread Eternity ❤</button>
+{% endblock %}
+
+{% block content %}
+
+    {% if daily_video %}
+        <!-- Intro Header -->
+        <header class="intro">
+            <div class="intro-body" style=''>
+                <div class="container" style='padding-left:0;'>
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+
+                            {% if daily_video %}
+                                <span id='daily_shiur_span' class="btn btn-primary btn-lg" style='white-space: nowrap; overflow: hidden; text-overflow: ellipsis;' href="" role="button">{{daily_shiur.title}}</span><Br/><br/>
+
+                                <h1 class="brand-heading brand-daily-shiur" style='display:none;padding-left:15px;'>{{daily_video.title}}</h1>
+                                
+                                {% if daily_shiur.video_url %}
+                                    <iframe id="player_1" style="margin-left: 20px;" src="{{daily_video.video_url}}" frameborder="0" width="90%" height="300"></iframe>
+                                {% endif %}
+                                <div>
+                                    <button class='btn'><i class='glyphicon glyphicon-chevron-left'></i></button>
+                                    <button class='btn'><i class='glyphicon glyphicon-chevron-right'></i></button>
+                                </div>
+                          
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+    {% endif %}
+    
+    <section id="eternities" class="container content-section text-center">
+        
+        {% for eternity in treeternities %}
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{eternity.title}}</h4>
+                </div>
+                <div class="row modal-body">
+                    
+                    {% if eternity.uplifting %}
+                    <p>
+                        {{eternity.uplifting}}
+                    </p>
+                    {% endif %}
+
+                    <div class="list-group">
+                        {% for wind in winds %}
+                            <a href="" class="list-group-item" style="border-radius: 0 !important; border-width: 1px 0px !important;">
+
+                                {% if request.user.is_authenticated %}
+                                <span class="badge"><i title="Edit title" class='glyphicon glyphicon-pencil'></i></span>
+                                <span class="badge"><i title="Hide" class='glyphicon glyphicon-lock'></i></span>
+                                <span class="badge"><i title="Publish publicly" class='glyphicon glyphicon-bullhorn'></i> </span>
+                                <span class="badge"><i title="Deletes" class='glyphicon glyphicon-remove-sign'></i></span>
+                                {% endif %}
+                                
+                            {{etternity.title|safe}}
+                            </a>
+                        {% endfor %}
+
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+
+                    {% if request.user.is_authenticated %}
+                    <div class="dropdown" style='display:inline;'>
+
+                      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <i class='glyphicon glyphicon-eye-close'></i> Friends only
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#"><i class='glyphicon glyphicon-eye-close'></i> Friends only</a></li>
+                        <li><a href="#"><i class='glyphicon glyphicon-eye-open'></i> Web</a></li>
+                      </ul>
+                    </div>
+
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Logout</button>
+                    {% else %}
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Spread love &#x2764;</button>
+                    {% endif %}
+                </div>
+            </div>
+            <br/><br/>
+        {% endfor %}
+    </section>
+
+	<!-- About Section -->
+    <section id="shiurim" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Fly by the wind oh so high!</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="list-group">
+                            {% for title in titles %}
+                                <a href="" class="list-group-item">
+                                    <span class="badge"><i class='glyphicon glyphicon-chevron-right'></i></span>
+                                    {{title.title|safe}}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    {% if request.user.is_authenticated %}
+    <!-- share Section -->
+    <section id="share" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Share a vide</h2>
+                <p>
+                    Share a windsurfing video the easy way!
+                </p>
+                <p>
+                    <button onclick="{% if not settings.DEBUG %} var window_location = window.location.href.replace(/^http:/, 'https:'); if (window.location.href != window_location) { $('#modal-upload').find('.modal-body').html('Please wait'); window.location = window_location + '#sslshiur'; return false; } {% endif %}" data-toggle='#modal-upload' class="btn btn-default modal-activate"><i class="glyphicon glyphicon-headphones"></i> Upload a windsurfing video</button>
+                    <!-- <button data-toggle='#modal-login-register' class="btn btn-default modal-activate">Login/register</button>  -->
+                </p>
+
+            </div>
+        </div>
+    </section>
+    {% else %}
+    {% endif %}
+    
+    {% if settings.ALLOW_LOGIN %}
+    {% if not settings.HTML_ONLY %}
+    <!-- Login or rogister Section -->
+    <section id="login" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Login or Register</h2>
+                <p>
+                    <button data-toggle='#modal-login-register' class="btn btn-default modal-activate"><i class="glyphicon glyphicon-user"></i> Login/register</button>
+                </p>
+
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    {% endif %}
+
+    <!--  Section -->
+    <section class="masthead content-section text-center">
+        <div class="">
+            <div class="container">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h3>Move to the forest, build communities that sustain the trees and their life by utilizing soil and epoxy blends to create artificial wood-like materials. </h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Contact</h2>
+                <p><a href="mailto:{{settings.EMAIL}}">{{settings.EMAIL}}</a>
+                </p>
+                
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block modal %}
+
+    {% include "modals/modal_login.html" %}
+    {% include "modals/modal_record.html" %}
+
+{% endblock %}
